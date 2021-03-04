@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Order_Application.Models.ProductDto>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+<p class="btn-lg">   
+    @Html.ActionLink("Create New", "Create")  
+</p>
+
+<div class="pagination-lg text-right">
+    @{
+        int PrevPage = Convert.ToInt32(ViewData["PageNum"]) - 1;
+        int NextPage = Convert.ToInt32(ViewData["PageNum"]) + 1;
+        @Html.ActionLink("Prev", "List", new { PageNum = PrevPage })
+        @ViewData["PageSummary"]
+        @Html.ActionLink("Next", "List", new { PageNum = NextPage })
+    }
+</div>
+
+<div class="record-container">
+    @foreach (var product in Model)
+    {
+        <div class="record ">
+            <div class="_record">
+                @{
+                    //Use server rendering to determine an image
+                    string pic = "/Content/Products/default.jpg";
+                    string alt = "No Product Picture Provided.";
+                    if (product.ProductHasPic)
+                    {
+                        pic = "/Content/Products/" + product.ProductID + "." + product.PicExtension;
+                        alt = "Product shot of " + product.ProductName;
+                    }
+                }
+
+                <div class="imagecontainer">
+                    <a data-lightbox="product-@product.ProductID" href="@pic" data-title="@alt">
+                        <img src="@pic" alt="@alt" height="350" />
+                    </a>
+                </div>
+                <div class="recordtitle">
+                    @Html.ActionLink(product.ProductName,
+                   "Details",
+                   new { id = product.ProductID })
+                </div>
+                <nav class="linknav  btn">
+                    <span class="editlink">@Html.ActionLink("Edit", "Edit", new { id = product.ProductID })</span>
+                </nav>
+
+
+            </div>
+        </div>
+    }
+</div>
+            
+
+   
+
+
+
+

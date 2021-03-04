@@ -1,0 +1,56 @@
+﻿@model Order_Application.Models.ViewModel.ShowProduct
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4> @Model.product.ProductName</h4>
+    <hr />
+    <div>@Html.ActionLink("Delete", "DeleteConfirm", new { id = Model.product.ProductID })</div>
+    @{
+        //Use server rendering to determine an image
+        string pic = "/Content/Products/default.jpg";
+        string alt = "No Product Picture Provided.";
+        if (Model.product.ProductHasPic)
+        {
+            pic = "/Content/Products/" + Model.product.ProductID + "." + Model.product.PicExtension;
+            alt = "Profile shot of " + Model.product.ProductName;
+        }
+    }
+    <div class="imagecontainer featured">
+        <img src="@pic" alt="@alt" />
+    </div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.product.ProductName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.product.ProductName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.product.ProductDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.product.ProductDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.product.ProductPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.product.ProductPrice)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.product.ProductID }) |
+    @Html.ActionLink("Back to List", "List")
+</p>

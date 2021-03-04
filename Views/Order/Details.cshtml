@@ -1,0 +1,86 @@
+﻿@model Order_Application.Models.ViewModel.ShowOrder
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Order.Customer.CustomerFirstName) @Html.DisplayFor(model => model.Order.Customer.CustomerLastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.OrderDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Order.OrderDate)
+        </dd>
+    </dl>
+    @{
+        decimal total = 0;
+    }
+        <table class="table">
+            <tr>
+                <th>
+                    Item Name
+                </th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                    Product Price
+                </th>
+                <th>
+                    Total
+                </th>
+            </tr>
+
+            @foreach (var item in Model.OrderItems)
+            {
+
+                <tr>
+                    <td>
+                        @item.Product.ProductName
+                    </td>
+                    <td>
+                        @item.Amount
+                    </td>
+                    <td>
+                        @item.ProductPrice
+                    </td>
+                    <td>
+                        @(item.Amount * (decimal)item.ProductPrice)
+
+                    </td>
+                </tr>
+
+                total += @item.Amount * (decimal)@item.ProductPrice;
+            }
+            <tr>
+                <td></td>
+                <td></td>
+                <td>Subtotal</td>
+                <td>
+                    @total
+                </td>
+            </tr>   
+        </table>
+
+
+
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Order.OrderID }) |
+    @Html.ActionLink("Back to List", "List") |
+    @Html.ActionLink("Delete", "DeleteConfirm", new { id = Model.Order.OrderID })
+</p>

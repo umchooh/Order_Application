@@ -1,0 +1,78 @@
+﻿@model Order_Application.Models.ViewModel.UpdateCustomer
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Update</h2>
+
+
+@{
+    //The attribute enctype="multipart/form-data" is required
+    //if you are sending files as part of the HTTP POST request
+}
+@using (Html.BeginForm("Edit", "Customer", new { id = Model.customer.CustomerID }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Customer</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.customer.CustomerID, new { Name = "CustomerID" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.customer.CustomerFirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.customer.CustomerFirstName, new { htmlAttributes = new { @class = "form-control", Name = "CustomerFirstName" } })
+                @Html.ValidationMessageFor(model => model.customer.CustomerFirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.customer.CustomerLastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.customer.CustomerLastName, new { htmlAttributes = new { @class = "form-control", Name = "CustomerLastName" } })
+                @Html.ValidationMessageFor(model => model.customer.CustomerLastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.customer.CustomerPhoneNum, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.customer.CustomerPhoneNum, new { htmlAttributes = new { @class = "form-control", Name = "CustomerPhoneNum" } })
+                @Html.ValidationMessageFor(model => model.customer.CustomerPhoneNum, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.customer.CustomerEmail, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.customer.CustomerEmail, new { htmlAttributes = new { @class = "form-control", Name = "CustomerEmail" } })
+                @Html.ValidationMessageFor(model => model.customer.CustomerEmail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.customer.CustomerShipping, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.customer.CustomerShipping, new { htmlAttributes = new { @class = "form-control", Name = "CustomerShipping" } })
+                @Html.ValidationMessageFor(model => model.customer.CustomerShipping, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "List")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
