@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 
 namespace Order_Application.Models
-{
+{ 
     public class OrderItems
     {
         public int OrderID { get; set; }
